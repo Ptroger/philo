@@ -18,7 +18,7 @@ int	init_fork(t_vars *vars, int i)
 	int				*fok;
 
 	fok = malloc(sizeof(int));
-	fork = malloc(sizeof(t_buff*));
+	fork = malloc(sizeof(pthread_mutex_t));
 	if (!fork || !fok)
 		return (destroy(vars, -3, MALLOC_ERR));
 	if (pthread_mutex_init(fork, NULL) != 0)
