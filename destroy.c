@@ -34,6 +34,7 @@ int	destroy(t_vars *vars, int code, char *errmsg)
 		while (i < vars->nb_phils && i < vars->inited)
 		{
 			free(vars->philosophers[i].l_fork);
+			pthread_mutex_unlock(vars->philosophers[i].left_fork);
 			ret = pthread_mutex_destroy(vars->philosophers[i].left_fork);
 			printf("i == %d\nret == %d\n", i, ret);
 			if (ret != 0)
