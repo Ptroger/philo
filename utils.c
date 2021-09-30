@@ -40,7 +40,7 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(n + '0', fd);
 }
 
-uint64_t	get_time(void)
+long long	get_time(void)
 {
 	struct timeval		time;
 	static time_t		start_sec = 0;

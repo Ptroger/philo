@@ -52,7 +52,7 @@ int 	init_fork(t_vars *vars, int i);
 int 	init_philosopher(t_vars *vars, int i);
 void	*routine(void *data);
 int		destroy(t_vars *vars, int code, char *errmsg);
-uint64_t	get_time(void);
+long long	get_time(void);
 void	p_eat(t_philosopher *philo);
 int	p_take(t_philosopher *philo);
 void	p_die(t_philosopher *philo);

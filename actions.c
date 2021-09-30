@@ -20,7 +20,7 @@ void	p_eat(t_philosopher *philo)
 
 void	p_sleep(t_philosopher *philo)
 {
-	uint64_t start_sleep;
+	long long start_sleep;
 
 	if (is_philo_dead(philo) == 0)
 	{
