@@ -49,11 +49,12 @@ int	main(int ac, char **av)
 	int		ret;
 
 	vars = malloc(sizeof(t_vars));
-	if (ac < 5 || ac > 6)
-		return (destroy(vars, -1, USAGE));
 	vars->inited = 0;
 	vars->malloced = 0;
 	pthread_mutex_init(&vars->screen_lock, NULL);
+	vars->nb_phils = 0;
+	if (ac < 5 || ac > 6)
+		return (destroy(vars, -1, USAGE));
 	ret = set_vars(av, vars, ac);
 	if (ret != 0)
 		return (-1);
