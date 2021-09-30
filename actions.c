@@ -5,12 +5,10 @@ void	p_eat(t_philosopher *philo)
 {
 	if (is_philo_dead(philo) == 0)
 	{
-		philo->is_eating = 1;
 		start_screen(philo, EAT);
 		usleep(philo->vars->t_eat * 1000);
 		philo->last_meal = get_time();
 		philo->meals_count++;
-		philo->is_eating = 0;
 	}
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);

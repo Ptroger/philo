@@ -4,9 +4,9 @@ int	init_philosopher(t_vars *vars, int i)
 {
 	int				ret;
 
-	vars->philosophers[i].state = TAKE;
 	vars->philosophers[i].last_meal = get_time();
-	vars->philosophers[i].vars = vars;
+	vars->philosophers[i].meals_count = 0;
+		vars->philosophers[i].vars = vars;
 	ret = pthread_create(&(vars->philosophers[i].thread_id),
 			NULL, &routine, &(vars->philosophers[i]));
 	return (ret);

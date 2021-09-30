@@ -19,11 +19,9 @@ struct	s_philosopher
 {
 	int					id;
 	int					meals_count;
-	int					state;
 	long long			last_meal;
 	int					*r_fork;
 	int					*l_fork;
-	int					is_eating;
 	t_vars				*vars;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
