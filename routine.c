@@ -55,7 +55,6 @@ void	*routine(void *data)
 	int				can_eat;
 
 	philo = (t_philosopher *)data;
-	pthread_mutex_unlock(philo->left_fork);
 	while (is_philo_dead(philo) == 0)
 	{
 		can_eat = p_take(philo);
