@@ -19,6 +19,7 @@ void free_phils(t_vars *vars)
 {
 	if (vars->malloced == 1)
 		free(vars->philosophers);
+	free(vars);
 }
 
 int	destroy(t_vars *vars, int code, char *errmsg)

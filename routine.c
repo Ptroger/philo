@@ -4,8 +4,6 @@ int	start_screen(t_philosopher *philo, int state)
 {
 	int			ret;
 
-	usleep(100);
-	printf("start screen debut %d\n", philo->id);
 	if (is_philo_dead(philo) == 0
 		|| (philo->vars->is_dead == philo->id && state == DEAD))
 	{
@@ -33,12 +31,10 @@ int	is_philo_dead(t_philosopher *philo)
 {
 	if (philo->vars->is_dead > 0)
 	{
-		printf("ici philo->%d\n", philo->id);
 		return (1);
 	}
 	if (get_time() - philo->last_meal >= philo->vars->t_die)
 	{
-		printf("oula\n");
 		philo->vars->is_dead = philo->id;
 		return (1);
 	}
@@ -47,11 +43,9 @@ int	is_philo_dead(t_philosopher *philo)
 		if (philo->vars->nb_eats > -1)
 		{
 			philo->vars->is_dead = philo->id;
-			printf("ouencoreici  %d\n", philo->vars->is_dead);
 			return (1);
 		}
 	}
-//	printf("ouencorela\n");
 	return (0);
 }
 

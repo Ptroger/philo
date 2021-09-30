@@ -1,6 +1,5 @@
 #include "philosophers.h"
 
-
 void	p_eat(t_philosopher *philo)
 {
 	if (is_philo_dead(philo) == 0)
@@ -43,9 +42,7 @@ int	p_take(t_philosopher *philo)
 {
 	if (philo->vars->nb_phils == 1)
 	{
-		printf("la %d\n", philo->id);
 		start_screen(philo, TAKE);
-		printf("ici\n");
 		while (is_philo_dead(philo) == 0)
 			usleep(100);
 	}
@@ -56,9 +53,7 @@ int	p_take(t_philosopher *philo)
 			pthread_mutex_lock(philo->right_fork);
 			*philo->r_fork = UNAVAILABLE;
 			start_screen(philo, TAKE);
-			printf("ici\n");
 			pthread_mutex_lock(philo->left_fork);
-			printf("ici\n");
 			*philo->l_fork = UNAVAILABLE;
 			start_screen(philo, TAKE);
 			return (1);
