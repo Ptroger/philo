@@ -27,11 +27,11 @@ int	destroy(t_vars *vars, int code, char *errmsg)
 	int	ret;
 	int	i;
 
-	i = 1;
+	i = 0;
 	if (vars)
 	{
 		pthread_mutex_destroy(&vars->screen_lock);
-		while (i <= vars->nb_phils && i <= vars->inited)
+		while (i < vars->nb_phils && i < vars->inited)
 		{
 			free(vars->philosophers[i].r_fork);
 			ret = pthread_mutex_destroy(vars->philosophers[i].right_fork);

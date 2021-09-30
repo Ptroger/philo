@@ -21,6 +21,7 @@
 
 // ARGS ERRMSGS
 
+# define SUCCESS "all good"
 # define NB_PHIL "\nnot enough or too many philosophers\n"
 # define T_T_DIE "\nnot enough time to die\n"
 # define T_T_EAT "\nnot enough time to eat\n"

@@ -60,6 +60,6 @@ int	main(int ac, char **av)
 	ret = start_threads(vars);
 	if (ret != 0)
 		return (-1);
-	free(vars);
+	destroy(vars, 0, SUCCESS);
 	return (0);
 }
