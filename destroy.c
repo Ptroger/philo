@@ -35,6 +35,7 @@ int	destroy(t_vars *vars, int code, char *errmsg)
 		{
 			free(vars->philosophers[i].l_fork);
 			ret = pthread_mutex_destroy(vars->philosophers[i].left_fork);
+			printf("i == %d\nret == %d\n", i, ret);
 			if (ret != 0)
 			{
 				ft_putstr_fd(DESTROY_FORK, 2);
