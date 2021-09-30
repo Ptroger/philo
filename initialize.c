@@ -51,7 +51,7 @@ int	init_philo_consts(t_vars *vars)
 		return (destroy(vars, -3, MALLOC_ERR));
 	vars->malloced = 1;
 	vars->philosophers = phils;
-	while (++i <= vars->nb_phils)
+	while (++i < vars->nb_phils)
 	{
 		vars->philosophers[i].vars = vars;
 		vars->philosophers[i].id = i + 1;

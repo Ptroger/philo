@@ -51,7 +51,7 @@ int	is_philo_dead(t_philosopher *philo)
 			return (1);
 		}
 	}
-	printf("ouencorela\n");
+//	printf("ouencorela\n");
 	return (0);
 }
 

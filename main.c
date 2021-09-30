@@ -29,7 +29,6 @@ static int	start_threads(t_vars *vars)
 		temp++;
 	}
 	temp = 0;
-
 	while (temp < vars->nb_phils)
 	{
 		ret = init_philosopher(vars, temp);
@@ -46,19 +45,20 @@ static int	start_threads(t_vars *vars)
 
 int	main(int ac, char **av)
 {
-	t_vars	vars;
+	t_vars	*vars;
 	int		ret;
 
 	if (ac < 5 || ac > 6)
-		return (destroy(&vars, -1, USAGE));
-	vars.inited = 0;
-	vars.malloced = 0;
-	pthread_mutex_init(&vars.screen_lock, NULL);
-	ret = set_vars(av, &vars, ac);
+		return (destroy(vars, -1, USAGE));
+	vars = malloc(sizeof(t_vars));
+	vars->inited = 0;
+	vars->malloced = 0;
+	pthread_mutex_init(&vars->screen_lock, NULL);
+	ret = set_vars(av, vars, ac);
 //	printf("ici, phil->%d\nvars->%d\n", vars.philosophers[i].id, vars.philosophers[i].vars.t_die);
 	if (ret != 0)
 		return (-1);
-	ret = start_threads(&vars);
+	ret = start_threads(vars);
 	if (ret != 0)
 		return (-1);
 	return (0);
