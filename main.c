@@ -5,7 +5,7 @@ static int	join_threads(t_vars *vars)
 	int	temp;
 	int	ret;
 
-	temp = 0;
+	temp = -1;
 	while (++temp <= vars->nb_phils)
 	{
 		ret = pthread_join(vars->philosophers[temp].thread_id, NULL);
