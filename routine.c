@@ -4,6 +4,7 @@ int	start_screen(t_philosopher *philo, int state)
 {
 	int			ret;
 
+	ret = 0;
 	if (is_philo_dead(philo) == 0
 		|| (philo->vars->is_dead == philo->id && state == DEAD))
 	{
