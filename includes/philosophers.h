@@ -19,8 +19,6 @@ struct	s_philosopher
 	int					id;
 	int					meals_count;
 	long long			last_meal;
-	int					*r_fork;
-	int					*l_fork;
 	t_vars				*vars;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
@@ -37,8 +35,10 @@ struct s_vars {
 	int					nb_eats;
 	int					error;
 	int					inited;
+	long long					start;
 	int					malloced;
 	pthread_mutex_t		screen_lock;
+	pthread_mutex_t		die_lock;
 	t_philosopher		*philosophers;
 };
 
@@ -56,7 +56,11 @@ void		p_die(t_philosopher *philo);
 void		p_sleep(t_philosopher *philo);
 void		p_think(t_philosopher *philo);
 int			start_screen(t_philosopher *philo, int state);
-int			is_philo_dead(t_philosopher *philo);
+int			get_death_status(t_philosopher *philo);
 int			ft_atoi(const char *str);
+void		sleep_time(int time);
+long long int	elapsed_time(struct timeval start);
+long long int	utc_time_in_usec(struct timeval time);
+struct timeval	now(void);
 
 #endif

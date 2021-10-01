@@ -4,7 +4,7 @@ int	init_philosopher(t_vars *vars, int i)
 {
 	int				ret;
 
-	vars->philosophers[i].last_meal = get_time();
+	vars->philosophers[i].last_meal = utc_time_in_usec(now());
 	vars->philosophers[i].meals_count = 0;
 	vars->philosophers[i].vars = vars;
 	ret = pthread_create(&(vars->philosophers[i].thread_id),
@@ -15,27 +15,17 @@ int	init_philosopher(t_vars *vars, int i)
 int	init_fork(t_vars *vars, int i)
 {
 	pthread_mutex_t	*fork;
-	int				*fok;
 
-	fok = malloc(sizeof(int));
 	fork = malloc(sizeof(pthread_mutex_t));
-	if (!fork || !fok)
+	if (!fork)
 		return (destroy(vars, -3, MALLOC_ERR));
 	if (pthread_mutex_init(fork, NULL) != 0)
 		return (-1);
-	*fok = AVAILABLE;
 	vars->philosophers[i].left_fork = fork;
-	vars->philosophers[i].l_fork = fok;
 	if (i > 0)
-	{
-		vars->philosophers[i - 1].r_fork = vars->philosophers[i].l_fork;
 		vars->philosophers[i - 1].right_fork = vars->philosophers[i].left_fork;
-	}
 	if (i == vars->nb_phils - 1)
-	{
 		vars->philosophers[i].right_fork = vars->philosophers[0].left_fork;
-		vars->philosophers[i].r_fork = vars->philosophers[0].l_fork;
-	}
 	vars->inited += 1;
 	return (0);
 }

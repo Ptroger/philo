@@ -27,7 +27,7 @@
 # define T_T_EAT "\nnot enough time to eat\n"
 # define T_T_SLEEP "\nnot enough time to sleep\n"
 # define NB_EATS "\nneed at least one meal before death\n"
-# define USAGE "\nusage = ./philosophers number etc\n"
+# define USAGE "\nusage = ./philo nb_phils t_die t_eat t_sleep [nb_meals]\n"
 
 // GENERAL ERRMSG
 

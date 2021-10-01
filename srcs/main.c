@@ -32,7 +32,7 @@ static int	start_threads(t_vars *vars)
 	while (temp < vars->nb_phils)
 	{
 		ret = init_philosopher(vars, temp);
-		usleep(100);
+		sleep_time(100);
 		if (ret == -1)
 			return (destroy(vars, 2, INIT_PHIL));
 		temp++;
@@ -52,6 +52,7 @@ int	main(int ac, char **av)
 	vars->inited = 0;
 	vars->malloced = 0;
 	pthread_mutex_init(&vars->screen_lock, NULL);
+	pthread_mutex_init(&vars->die_lock, NULL);
 	vars->nb_phils = 0;
 	if (ac < 5 || ac > 6)
 		return (destroy(vars, -1, USAGE));

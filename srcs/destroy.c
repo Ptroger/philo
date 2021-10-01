@@ -33,7 +33,6 @@ int	destroy(t_vars *vars, int code, char *errmsg)
 		pthread_mutex_destroy(&vars->screen_lock);
 		while (i < vars->nb_phils && i < vars->inited)
 		{
-			free(vars->philosophers[i].l_fork);
 			ret = pthread_mutex_destroy(vars->philosophers[i].left_fork);
 			if (ret != 0)
 				ft_putstr_fd(DESTROY_FORK, 2);
