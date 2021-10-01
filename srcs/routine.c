@@ -1,15 +1,15 @@
 #include "philosophers.h"
+#include <stdio.h>
 
-int	start_screen(t_philosopher *philo, int state)
+void	start_screen(t_philosopher *philo, int state)
 {
 	int			ret;
 
-	ret = 0;
-	if (get_death_status(philo) == 0
-		|| (philo->vars->is_dead == philo->id && state == DEAD))
+	pthread_mutex_lock(&philo->vars->screen_lock);
+	ret = get_death_status(philo);
+	if (ret == 0 || (ret == philo->id && state == DEAD))
 	{
-		pthread_mutex_lock(&philo->vars->screen_lock);
-		ft_putnbr_fd(get_time(), 1);
+		ft_putnbr_fd(elapsed_time(philo->vars->start), 1);
 		ft_putstr_fd(" -- ", 1);
 		ft_putstr_fd("Philosopher ", 1);
 		ft_putnbr_fd(philo->id, 1);
@@ -23,36 +23,27 @@ int	start_screen(t_philosopher *philo, int state)
 			ft_putstr_fd(THINK_STR, 1);
 		else if (state == DEAD)
 			ft_putstr_fd(DEAD_STR, 1);
-		pthread_mutex_unlock(&philo->vars->screen_lock);
 	}
-	return (ret);
+	pthread_mutex_unlock(&philo->vars->screen_lock);
 }
 
 int	is_philo_dead(t_philosopher *philo)
 {
 	if (philo->vars->is_dead > 0)
 		return (1);
-	if (get_time() - philo->last_meal >= philo->vars->t_die)
+	if (elapsed_time(philo->vars->start) - philo->last_meal
+		>= philo->vars->t_die)
 	{
 		philo->vars->is_dead = philo->id;
 		return (1);
-	}
-	if (philo->meals_count >= philo->vars->nb_eats)
-	{
-		if (philo->vars->nb_eats > -1)
-		{
-			philo->vars->is_dead = philo->id;
-			return (1);
-		}
 	}
 	return (0);
 }
 
 int	get_death_status(t_philosopher *philo)
 {
-	int i;
+	int	i;
 
-	i = 0;
 	pthread_mutex_lock(&philo->vars->die_lock);
 	i = is_philo_dead(philo);
 	pthread_mutex_unlock(&philo->vars->die_lock);
@@ -77,6 +68,8 @@ void	*routine(void *data)
 			p_sleep(philo);
 			p_think(philo);
 		}
+		if (philo->meals_count == philo->vars->nb_eats)
+			return (NULL);
 	}
 	if (philo->vars->is_dead == philo->id)
 		p_die(philo);

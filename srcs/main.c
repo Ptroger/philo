@@ -1,17 +1,24 @@
 #include "philosophers.h"
+#include <stdio.h>
 
 static int	join_threads(t_vars *vars)
 {
 	int	temp;
+	int	eat;
 	int	ret;
 
 	temp = -1;
+	eat = 0;
 	while (++temp < vars->nb_phils)
 	{
 		ret = pthread_join(vars->philosophers[temp].thread_id, NULL);
+		if (vars->philosophers[temp].meals_count == vars->nb_eats)
+			eat++;
 		if (ret == -1)
 			return (destroy(vars, 3, JOIN_PHIL));
 	}
+	if (eat == vars->nb_phils)
+		printf("All philosophers ate %d times\n", vars->nb_eats);
 	return (0);
 }
 

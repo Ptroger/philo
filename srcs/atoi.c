@@ -1,5 +1,23 @@
 #include "philosophers.h"
 
+void	take_forks(t_philosopher *philo, int i)
+{
+	if (i == 0)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		start_screen(philo, TAKE);
+		pthread_mutex_lock(philo->right_fork);
+		start_screen(philo, TAKE);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		start_screen(philo, TAKE);
+		pthread_mutex_lock(philo->left_fork);
+		start_screen(philo, TAKE);
+	}
+}
+
 static int	manage_isspace(const char *str, int i)
 {
 	if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'

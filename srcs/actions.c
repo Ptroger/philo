@@ -5,8 +5,8 @@ void	p_eat(t_philosopher *philo)
 	if (get_death_status(philo) == 0)
 	{
 		start_screen(philo, EAT);
+		philo->last_meal = elapsed_time(philo->vars->start);
 		sleep_time(philo->vars->t_eat);
-		philo->last_meal = get_time();
 		philo->meals_count++;
 	}
 	pthread_mutex_unlock(philo->right_fork);
@@ -15,41 +15,33 @@ void	p_eat(t_philosopher *philo)
 
 void	p_sleep(t_philosopher *philo)
 {
-	long long	start_sleep;
-
 	if (get_death_status(philo) == 0)
 	{
-		start_sleep = get_time();
 		start_screen(philo, SLEEP);
-		while (get_time() - start_sleep < philo->vars->t_sleep)
-		{
-			if (get_death_status(philo) == 1)
-				break ;
-			sleep_time(100);
-		}
+		sleep_time(philo->vars->t_sleep);
 	}
 }
 
 void	p_think(t_philosopher *philo)
 {
-	if (philo->vars->is_dead == 0)
+	if (get_death_status(philo) == 0)
 		start_screen(philo, THINK);
 }
 
 int	p_take(t_philosopher *philo)
 {
+	int	ret;
+
 	if (philo->vars->nb_phils == 1)
 	{
 		start_screen(philo, TAKE);
 		while (get_death_status(philo) == 0)
 			sleep_time(100);
 	}
-	if (get_death_status(philo) == 0)
+	ret = get_death_status(philo);
+	if (ret == 0)
 	{
-		pthread_mutex_lock(philo->right_fork);
-		start_screen(philo, TAKE);
-		pthread_mutex_lock(philo->left_fork);
-		start_screen(philo, TAKE);
+		take_forks(philo, philo->id % 2);
 		return (1);
 	}
 	return (0);

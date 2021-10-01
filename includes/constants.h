@@ -3,8 +3,6 @@
 
 // STATE CONSTANTS
 
-# define AVAILABLE 0
-# define UNAVAILABLE 1
 # define TAKE 0
 # define EAT 1
 # define SLEEP 2

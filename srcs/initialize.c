@@ -51,7 +51,6 @@ int	init_philo_consts(t_vars *vars)
 
 int	set_vars(char **av, t_vars *vars, int ac)
 {
-	pthread_mutex_init(&vars->screen_lock, NULL);
 	vars->is_dead = 0;
 	vars->nb_phils = ft_atoi(av[1]);
 	if (vars->nb_phils < 1)
@@ -75,5 +74,6 @@ int	set_vars(char **av, t_vars *vars, int ac)
 		vars->nb_eats = -1;
 	vars->is_dead = -1;
 	init_philo_consts(vars);
+	vars->start = now();
 	return (0);
 }

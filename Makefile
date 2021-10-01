@@ -6,13 +6,14 @@ SRCS	=	srcs/main.c				\
 			srcs/destroy.c			\
 			srcs/routine.c			\
 			srcs/actions.c			\
+			srcs/time.c				\
 			srcs/utils.c			\
 
 INCLUDE	=	includes/
 
 OBJS	=	$(SRCS:%.c=%.o)
 
-CFLAGS	=	-Wall -Wextra -Werror -pthread -g -I ./$(INCLUDE)
+CFLAGS	=	-Wall -Wextra -Werror -pthread -fsanitize=thread -g -I ./$(INCLUDE)
 
 CC		=	gcc
 
