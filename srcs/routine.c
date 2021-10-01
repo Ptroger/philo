@@ -21,8 +21,6 @@ void	start_screen(t_philosopher *philo, int state)
 			ft_putstr_fd(SLEEP_STR, 1);
 		else if (state == THINK)
 			ft_putstr_fd(THINK_STR, 1);
-		else if (state == DEAD)
-			ft_putstr_fd(DEAD_STR, 1);
 	}
 	pthread_mutex_unlock(&philo->vars->screen_lock);
 }
@@ -30,12 +28,12 @@ void	start_screen(t_philosopher *philo, int state)
 int	is_philo_dead(t_philosopher *philo)
 {
 	if (philo->vars->is_dead > 0)
-		return (1);
+		return (philo->id);
 	if (elapsed_time(philo->vars->start) - philo->last_meal
 		>= philo->vars->t_die)
 	{
 		philo->vars->is_dead = philo->id;
-		return (1);
+		return (philo->id);
 	}
 	return (0);
 }
@@ -46,6 +44,15 @@ int	get_death_status(t_philosopher *philo)
 
 	pthread_mutex_lock(&philo->vars->die_lock);
 	i = is_philo_dead(philo);
+	if (i == philo->id && philo->vars->printed_death == 0)
+	{
+		ft_putnbr_fd(elapsed_time(philo->vars->start), 1);
+		ft_putstr_fd(" -- ", 1);
+		ft_putstr_fd("Philosopher ", 1);
+		ft_putnbr_fd(philo->id, 1);
+		ft_putstr_fd(DEAD_STR, 1);
+		philo->vars->printed_death = 1;
+	}
 	pthread_mutex_unlock(&philo->vars->die_lock);
 	return (i);
 }
@@ -71,7 +78,5 @@ void	*routine(void *data)
 		if (philo->meals_count == philo->vars->nb_eats)
 			return (NULL);
 	}
-	if (philo->vars->is_dead == philo->id)
-		p_die(philo);
 	return (NULL);
 }

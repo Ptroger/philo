@@ -2,7 +2,10 @@
 
 void	p_eat(t_philosopher *philo)
 {
-	if (get_death_status(philo) == 0)
+	int	ret;
+
+	ret = get_death_status(philo);
+	if (ret == 0)
 	{
 		start_screen(philo, EAT);
 		philo->last_meal = elapsed_time(philo->vars->start);
@@ -15,7 +18,10 @@ void	p_eat(t_philosopher *philo)
 
 void	p_sleep(t_philosopher *philo)
 {
-	if (get_death_status(philo) == 0)
+	int	ret;
+
+	ret = get_death_status(philo);
+	if (ret == 0)
 	{
 		start_screen(philo, SLEEP);
 		sleep_time(philo->vars->t_sleep);
@@ -24,7 +30,10 @@ void	p_sleep(t_philosopher *philo)
 
 void	p_think(t_philosopher *philo)
 {
-	if (get_death_status(philo) == 0)
+	int	ret;
+
+	ret = get_death_status(philo);
+	if (ret == 0)
 		start_screen(philo, THINK);
 }
 
@@ -32,11 +41,15 @@ int	p_take(t_philosopher *philo)
 {
 	int	ret;
 
+	ret = 0;
 	if (philo->vars->nb_phils == 1)
 	{
 		start_screen(philo, TAKE);
-		while (get_death_status(philo) == 0)
-			sleep_time(100);
+		while (ret == 0)
+		{
+			ret = get_death_status(philo);
+			sleep_time(1);
+		}
 	}
 	ret = get_death_status(philo);
 	if (ret == 0)

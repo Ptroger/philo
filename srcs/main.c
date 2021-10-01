@@ -39,7 +39,7 @@ static int	start_threads(t_vars *vars)
 	while (temp < vars->nb_phils)
 	{
 		ret = init_philosopher(vars, temp);
-		sleep_time(100);
+		sleep_time(1);
 		if (ret == -1)
 			return (destroy(vars, 2, INIT_PHIL));
 		temp++;

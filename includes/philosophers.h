@@ -9,10 +9,6 @@
 
 typedef struct s_vars			t_vars;
 typedef struct s_philosopher	t_philosopher;
-typedef struct s_buff
-{
-	pthread_mutex_t	mutex;
-}	t_buff;
 
 struct	s_philosopher
 {
@@ -31,6 +27,7 @@ struct s_vars {
 	int					t_sleep;
 	int					t_die;
 	int					nb_phils;
+	int					printed_death;
 	int					nb_eats;
 	int					inited;
 	struct timeval		start;

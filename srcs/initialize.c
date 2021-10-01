@@ -4,7 +4,8 @@ int	init_philosopher(t_vars *vars, int i)
 {
 	int				ret;
 
-	vars->philosophers[i].last_meal = utc_time_in_usec(now());
+	vars->printed_death = 0;
+	vars->philosophers[i].last_meal = 0;
 	vars->philosophers[i].meals_count = 0;
 	vars->philosophers[i].vars = vars;
 	ret = pthread_create(&(vars->philosophers[i].thread_id),
